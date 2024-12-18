@@ -18,7 +18,7 @@ const Login = () => {
         password: "",
         role: "",
     });
-    const { loading,user } = useSelector(store => store.auth);
+    const { loading, user } = useSelector(store => store.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -48,17 +48,17 @@ const Login = () => {
             dispatch(setLoading(false));
         }
     }
-    useEffect(()=>{
-        if(user){
+    useEffect(() => {
+        if (user) {
             navigate("/");
         }
-    },[])
+    }, [])
     return (
         <div>
             <Navbar />
             <div className='flex items-center justify-center max-w-7xl mx-auto'>
                 <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
-                    <h1 className='font-bold text-xl mb-5'>Login</h1>
+                    <h1 className='font-bold text-xl mb-5'>Đăng nhập</h1>
                     <div className='my-2'>
                         <Label>Email</Label>
                         <Input
@@ -66,20 +66,21 @@ const Login = () => {
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="tanphuc@gmail.com"
                         />
                     </div>
 
                     <div className='my-2'>
-                        <Label>Password</Label>
+                        <Label>Mật khẩu</Label>
                         <Input
                             type="password"
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="********"
                         />
                     </div>
+
                     <div className='flex items-center justify-between'>
                         <RadioGroup className="flex items-center gap-4 my-5">
                             <div className="flex items-center space-x-2">
@@ -91,7 +92,7 @@ const Login = () => {
                                     onChange={changeEventHandler}
                                     className="cursor-pointer"
                                 />
-                                <Label htmlFor="r1">Student</Label>
+                                <Label htmlFor="r1">Ứng viên</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
@@ -102,18 +103,21 @@ const Login = () => {
                                     onChange={changeEventHandler}
                                     className="cursor-pointer"
                                 />
-                                <Label htmlFor="r2">Recruiter</Label>
+                                <Label htmlFor="r2">Nhà tuyển dụng</Label>
                             </div>
                         </RadioGroup>
                     </div>
+
                     {
-                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Login</Button>
+                        loading
+                            ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng chờ </Button>
+                            : <Button type="submit" className="w-full my-4">Đăng nhập</Button>
                     }
-                    <span className='text-sm'>Don't have an account? <Link to="/signup" className='text-blue-600'>Signup</Link></span>
+                    <span className='text-sm'>Chưa có tài khoản? <Link to="/signup" className='text-blue-600'>Đăng ký</Link></span>
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

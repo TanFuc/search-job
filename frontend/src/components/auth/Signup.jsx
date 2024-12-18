@@ -22,7 +22,7 @@ const Signup = () => {
         role: "",
         file: ""
     });
-    const {loading,user} = useSelector(store=>store.auth);
+    const { loading, user } = useSelector(store => store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -57,30 +57,30 @@ const Signup = () => {
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.message);
-        } finally{
+        } finally {
             dispatch(setLoading(false));
         }
     }
 
-    useEffect(()=>{
-        if(user){
+    useEffect(() => {
+        if (user) {
             navigate("/");
         }
-    },[])
+    }, [])
     return (
         <div>
             <Navbar />
             <div className='flex items-center justify-center max-w-7xl mx-auto'>
                 <form onSubmit={submitHandler} className='w-1/2 border border-gray-200 rounded-md p-4 my-10'>
-                    <h1 className='font-bold text-xl mb-5'>Sign Up</h1>
+                    <h1 className='font-bold text-xl mb-5'>Đăng ký</h1>
                     <div className='my-2'>
-                        <Label>Full Name</Label>
+                        <Label>Họ và Tên</Label>
                         <Input
                             type="text"
                             value={input.fullname}
                             name="fullname"
                             onChange={changeEventHandler}
-                            placeholder="patel"
+                            placeholder="Nguyễn Văn Tèo"
                         />
                     </div>
                     <div className='my-2'>
@@ -90,11 +90,11 @@ const Signup = () => {
                             value={input.email}
                             name="email"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="teonguyen@gmail.com"
                         />
                     </div>
                     <div className='my-2'>
-                        <Label>Phone Number</Label>
+                        <Label>Số điện thoại</Label>
                         <Input
                             type="text"
                             value={input.phoneNumber}
@@ -104,13 +104,13 @@ const Signup = () => {
                         />
                     </div>
                     <div className='my-2'>
-                        <Label>Password</Label>
+                        <Label>Mật khẩu</Label>
                         <Input
                             type="password"
                             value={input.password}
                             name="password"
                             onChange={changeEventHandler}
-                            placeholder="patel@gmail.com"
+                            placeholder="********"
                         />
                     </div>
                     <div className='flex items-center justify-between'>
@@ -124,7 +124,7 @@ const Signup = () => {
                                     onChange={changeEventHandler}
                                     className="cursor-pointer"
                                 />
-                                <Label htmlFor="r1">Student</Label>
+                                <Label htmlFor="r1">Sinh viên</Label>
                             </div>
                             <div className="flex items-center space-x-2">
                                 <Input
@@ -135,11 +135,11 @@ const Signup = () => {
                                     onChange={changeEventHandler}
                                     className="cursor-pointer"
                                 />
-                                <Label htmlFor="r2">Recruiter</Label>
+                                <Label htmlFor="r2">Nhà tuyển dụng</Label>
                             </div>
                         </RadioGroup>
                         <div className='flex items-center gap-2'>
-                            <Label>Profile</Label>
+                            <Label>Ảnh đại diện</Label>
                             <Input
                                 accept="image/*"
                                 type="file"
@@ -149,13 +149,15 @@ const Signup = () => {
                         </div>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Signup</Button>
+                        loading
+                            ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng chờ </Button>
+                            : <Button type="submit" className="w-full my-4">Đăng ký</Button>
                     }
-                    <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span>
+                    <span className='text-sm'>Đã có tài khoản? <Link to="/login" className='text-blue-600'>Đăng nhập</Link></span>
                 </form>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Signup
+export default Signup;

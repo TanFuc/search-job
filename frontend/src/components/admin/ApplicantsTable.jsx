@@ -29,59 +29,53 @@ const ApplicantsTable = () => {
     return (
         <div>
             <Table>
-                <TableCaption>A list of your recent applied user</TableCaption>
+                <TableCaption>Danh sách các ứng viên gần đây đã nộp đơn</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>FullName</TableHead>
+                        <TableHead>Tên đầy đủ</TableHead>
                         <TableHead>Email</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Resume</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Action</TableHead>
+                        <TableHead>Số điện thoại</TableHead>
+                        <TableHead>Sơ yếu lý lịch</TableHead>
+                        <TableHead>Ngày ứng tuyển</TableHead>
+                        <TableHead className="text-right">Hành động</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {
-                        applicants && applicants?.applications?.map((item) => (
-                            <tr key={item._id}>
-                                <TableCell>{item?.applicant?.fullname}</TableCell>
-                                <TableCell>{item?.applicant?.email}</TableCell>
-                                <TableCell>{item?.applicant?.phoneNumber}</TableCell>
-                                <TableCell >
-                                    {
-                                        item.applicant?.profile?.resume ? <a className="text-blue-600 cursor-pointer" href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">{item?.applicant?.profile?.resumeOriginalName}</a> : <span>NA</span>
-                                    }
-                                </TableCell>
-                                <TableCell>{item?.applicant.createdAt.split("T")[0]}</TableCell>
-                                <TableCell className="float-right cursor-pointer">
-                                    <Popover>
-                                        <PopoverTrigger>
-                                            <MoreHorizontal />
-                                        </PopoverTrigger>
-                                        <PopoverContent className="w-32">
-                                            {
-                                                shortlistingStatus.map((status, index) => {
-                                                    return (
-                                                        <div onClick={() => statusHandler(status, item?._id)} key={index} className='flex w-fit items-center my-2 cursor-pointer'>
-                                                            <span>{status}</span>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </PopoverContent>
-                                    </Popover>
-
-                                </TableCell>
-
-                            </tr>
-                        ))
-                    }
-
+                    {applicants && applicants?.applications?.map((item) => (
+                        <tr key={item._id}>
+                            <TableCell>{item?.applicant?.fullname}</TableCell>
+                            <TableCell>{item?.applicant?.email}</TableCell>
+                            <TableCell>{item?.applicant?.phoneNumber}</TableCell>
+                            <TableCell>
+                                {item.applicant?.profile?.resume ? (
+                                    <a className="text-blue-600 cursor-pointer" href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">
+                                        {item?.applicant?.profile?.resumeOriginalName}
+                                    </a>
+                                ) : (
+                                    <span>Chưa có</span>
+                                )}
+                            </TableCell>
+                            <TableCell>{item?.applicant.createdAt.split("T")[0]}</TableCell>
+                            <TableCell className="float-right cursor-pointer">
+                                <Popover>
+                                    <PopoverTrigger>
+                                        <MoreHorizontal />
+                                    </PopoverTrigger>
+                                    <PopoverContent className="w-32">
+                                        {shortlistingStatus.map((status, index) => (
+                                            <div onClick={() => statusHandler(status, item?._id)} key={index} className='flex w-fit items-center my-2 cursor-pointer'>
+                                                <span>{status}</span>
+                                            </div>
+                                        ))}
+                                    </PopoverContent>
+                                </Popover>
+                            </TableCell>
+                        </tr>
+                    ))}
                 </TableBody>
-
             </Table>
         </div>
-    )
-}
+    );
+};
 
-export default ApplicantsTable
+export default ApplicantsTable;

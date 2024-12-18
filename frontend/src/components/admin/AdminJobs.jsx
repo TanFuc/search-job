@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../shared/Navbar'
 import { Input } from '../ui/input'
-import { Button } from '../ui/button' 
-import { useNavigate } from 'react-router-dom' 
-import { useDispatch } from 'react-redux' 
+import { Button } from '../ui/button'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import AdminJobsTable from './AdminJobsTable'
 import useGetAllAdminJobs from '@/hooks/useGetAllAdminJobs'
 import { setSearchJobByText } from '@/redux/jobSlice'
@@ -24,10 +24,10 @@ const AdminJobs = () => {
         <div className='flex items-center justify-between my-5'>
           <Input
             className="w-fit"
-            placeholder="Filter by name, role"
+            placeholder="Tim kiếm tên, vai trò"
             onChange={(e) => setInput(e.target.value)}
           />
-          <Button onClick={() => navigate("/admin/jobs/create")}>New Jobs</Button>
+          <Button onClick={() => navigate("/admin/jobs/create")}>Thêm mới</Button>
         </div>
         <AdminJobsTable />
       </div>

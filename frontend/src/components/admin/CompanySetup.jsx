@@ -21,7 +21,7 @@ const CompanySetup = () => {
         location: "",
         file: null
     });
-    const {singleCompany} = useSelector(store=>store.company);
+    const { singleCompany } = useSelector(store => store.company);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -72,7 +72,7 @@ const CompanySetup = () => {
             location: singleCompany.location || "",
             file: singleCompany.file || null
         })
-    },[singleCompany]);
+    }, [singleCompany]);
 
     return (
         <div>
@@ -82,13 +82,13 @@ const CompanySetup = () => {
                     <div className='flex items-center gap-5 p-8'>
                         <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold">
                             <ArrowLeft />
-                            <span>Back</span>
+                            <span>Quay lại</span>
                         </Button>
-                        <h1 className='font-bold text-xl'>Company Setup</h1>
+                        <h1 className='font-bold text-xl'>Cài đặt công ty</h1>
                     </div>
                     <div className='grid grid-cols-2 gap-4'>
                         <div>
-                            <Label>Company Name</Label>
+                            <Label>Tên công ty</Label>
                             <Input
                                 type="text"
                                 name="name"
@@ -97,7 +97,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div>
-                            <Label>Description</Label>
+                            <Label>Mô tả</Label>
                             <Input
                                 type="text"
                                 name="description"
@@ -115,7 +115,7 @@ const CompanySetup = () => {
                             />
                         </div>
                         <div>
-                            <Label>Location</Label>
+                            <Label>Vị trí</Label>
                             <Input
                                 type="text"
                                 name="location"
@@ -133,13 +133,12 @@ const CompanySetup = () => {
                         </div>
                     </div>
                     {
-                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Update</Button>
+                        loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng đợi </Button> : <Button type="submit" className="w-full my-4">Cập nhật</Button>
                     }
                 </form>
             </div>
-
         </div>
     )
 }
 
-export default CompanySetup
+export default CompanySetup;
