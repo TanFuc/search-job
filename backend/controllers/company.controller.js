@@ -1,6 +1,7 @@
 import { Company } from "../models/company.model.js";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
+import { Job } from "../models/job.model.js";
 
 export const registerCompany = async (req, res) => {
     try {
@@ -44,7 +45,7 @@ export const getCompany = async (req, res) => {
         }
         return res.status(200).json({
             companies,
-            success:true
+            success: true
         })
     } catch (error) {
         console.log(error);
@@ -72,13 +73,13 @@ export const getCompanyById = async (req, res) => {
 export const updateCompany = async (req, res) => {
     try {
         const { name, description, website, location } = req.body;
- 
+
         const file = req.file;
         // idhar cloudinary ayega
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
         const logo = cloudResponse.secure_url;
-    
+
         const updateData = { name, description, website, location, logo };
 
         const company = await Company.findByIdAndUpdate(req.params.id, updateData, { new: true });
@@ -90,11 +91,65 @@ export const updateCompany = async (req, res) => {
             })
         }
         return res.status(200).json({
-            message:"Company information updated.",
-            success:true
+            message: "Company information updated.",
+            success: true
         })
 
     } catch (error) {
         console.log(error);
     }
 }
+
+// // src/controllers/company.controller.js
+// export const deleteCompany = async (req, res) => {
+//     try {
+//         const companyId = req.params.id;
+//         const company = await Company.findByIdAndDelete(companyId);
+//         if (!company) {
+//             return res.status(404).json({
+//                 message: "Company not found.",
+//                 success: false
+//             });
+//         }
+//         return res.status(200).json({
+//             message: "Company deleted successfully.",
+//             success: true
+//         });
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({
+//             message: "Error deleting company.",
+//             success: false
+//         });
+//     }
+// };
+
+export const deleteCompany = async (req, res) => {
+    try {
+        const companyId = req.params.id;
+
+        // Tìm và xóa công ty
+        const company = await Company.findByIdAndDelete(companyId);
+
+        if (!company) {
+            return res.status(404).json({
+                message: "Công ty không tồn tại.",
+                success: false
+            });
+        }
+
+        // Xóa tất cả các công việc liên quan đến công ty
+        await Job.deleteMany({ company: companyId });
+
+        return res.status(200).json({
+            message: "Công ty đã được xóa thành công.",
+            success: true
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: "Lỗi khi xóa công ty.",
+            success: false
+        });
+    }
+};
