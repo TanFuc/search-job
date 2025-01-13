@@ -177,13 +177,13 @@ const AdminJobsTable = () => {
                                 <Popover>
                                     <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
                                     <PopoverContent className="w-32">
-                                        <div
+                                        {/* <div
                                             onClick={() => editJobHandler(job._id)} // Sử dụng editJobHandler
                                             className="flex items-center gap-2 w-full cursor-pointer hover:bg-gray-100 p-2 rounded"
                                         >
                                             <Edit2 className="w-4" />
                                             <span>Sửa</span>
-                                        </div>
+                                        </div> */}
                                         <div
                                             onClick={() => navigate(`/admin/jobs/${job._id}/applicants`)}
                                             className="flex items-center w-full gap-2 cursor-pointer mt-1 hover:bg-gray-100 p-2 rounded"

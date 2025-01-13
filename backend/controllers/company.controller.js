@@ -8,14 +8,14 @@ export const registerCompany = async (req, res) => {
         const { companyName } = req.body;
         if (!companyName) {
             return res.status(400).json({
-                message: "Company name is required.",
+                message: "Bắt buộc điền tên công ty.",
                 success: false
             });
         }
         let company = await Company.findOne({ name: companyName });
         if (company) {
             return res.status(400).json({
-                message: "You can't register same company.",
+                message: "Đăng ký thất bại.",
                 success: false
             })
         };
@@ -25,7 +25,7 @@ export const registerCompany = async (req, res) => {
         });
 
         return res.status(201).json({
-            message: "Company registered successfully.",
+            message: "Công ty đăng ký thành công.",
             company,
             success: true
         })
@@ -39,7 +39,7 @@ export const getCompany = async (req, res) => {
         const companies = await Company.find({ userId });
         if (!companies) {
             return res.status(404).json({
-                message: "Companies not found.",
+                message: "Công ty không tồn tại.",
                 success: false
             })
         }
@@ -58,7 +58,7 @@ export const getCompanyById = async (req, res) => {
         const company = await Company.findById(companyId);
         if (!company) {
             return res.status(404).json({
-                message: "Company not found.",
+                message: "Công ty không tồn tại.",
                 success: false
             })
         }
@@ -86,12 +86,12 @@ export const updateCompany = async (req, res) => {
 
         if (!company) {
             return res.status(404).json({
-                message: "Company not found.",
+                message: "Công ty không tồn tại.",
                 success: false
             })
         }
         return res.status(200).json({
-            message: "Company information updated.",
+            message: "Cập nhật thành công.",
             success: true
         })
 
