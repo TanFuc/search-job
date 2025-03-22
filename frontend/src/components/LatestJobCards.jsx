@@ -13,7 +13,7 @@ const LatestJobCards = ({ job }) => {
         >
             <div>
                 <h1 className='font-medium text-lg'>{job?.company?.name || 'Công ty chưa cập nhật'}</h1>
-                <p className='text-sm text-gray-500'>Việt Nam</p>
+                <p className='text-sm text-gray-500'>{job?.location}</p>
             </div>
 
             <div>
@@ -25,7 +25,7 @@ const LatestJobCards = ({ job }) => {
 
             <div className="flex items-center gap-2 mt-4 flex-wrap">
                 <Badge className="text-blue-700 font-bold max-w-xs truncate" variant="ghost">
-                    {job?.position || 'Vị trí chưa rõ'}
+                    {job?.position ? `${job.position} Vị trí` : 'Vị trí chưa rõ'}
                 </Badge>
 
                 <Badge className="text-[#F83002] font-bold max-w-xs truncate" variant="ghost">

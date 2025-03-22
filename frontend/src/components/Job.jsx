@@ -31,7 +31,7 @@ const Job = ({ job }) => {
                 </Button>
                 <div>
                     <h1 className='font-medium text-lg'>{job?.company?.name}</h1>
-                    <p className='text-sm text-gray-500'>Việt Nam</p>
+                    <p className='text-sm text-gray-500'>{job?.location}</p>
                 </div>
             </div>
 
