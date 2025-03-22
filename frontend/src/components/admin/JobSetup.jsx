@@ -10,10 +10,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
 import useGetJobById from '@/hooks/useGetJobById';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+
+const provinces = ["Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Hải Phòng"];
+const jobTypes = ["Full-time", "Part-time", "Internship", "Freelance", "Remote"];
 
 const JobSetup = () => {
     const params = useParams();
     useGetJobById(params.id);
+
+    const { singleJob } = useSelector((store) => store.job);
+    const { companies } = useSelector((store) => store.company);
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
     const [input, setInput] = useState({
         title: "",
@@ -22,46 +31,36 @@ const JobSetup = () => {
         salary: "",
         location: "",
         jobType: "",
-        experienceLevel: "",
-        position: "",
-        file: null,
+        experience: "",
+        position: 0,
+        companyId: ""
     });
 
-    const { singleJob } = useSelector((store) => store.job);
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-
     const changeEventHandler = (e) => {
-        setInput({ ...input, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setInput((prev) => ({ ...prev, [name]: name === "position" ? Number(value) : value }));
     };
 
-    const changeFileHandler = (e) => {
-        const file = e.target.files?.[0];
-        setInput({ ...input, file });
+    const selectCompanyHandler = (value) => {
+        const selectedCompany = companies.find((company) => company.name.toLowerCase() === value);
+        if (selectedCompany) {
+            setInput((prev) => ({ ...prev, companyId: selectedCompany._id }));
+        }
     };
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append("title", input.title);
-        formData.append("description", input.description);
-        formData.append("requirements", input.requirements);
-        formData.append("salary", input.salary);
-        formData.append("location", input.location);
-        formData.append("jobType", input.jobType);
-        formData.append("experienceLevel", input.experienceLevel);
-        formData.append("position", input.position);
-        if (input.file) {
-            formData.append("file", input.file);
+
+        if (!input.title || !input.description || !input.requirements || !input.salary ||
+            !input.location || !input.jobType || !input.experience || input.position <= 0 || !input.companyId) {
+            toast.error("Vui lòng điền đầy đủ thông tin hợp lệ.");
+            return;
         }
 
         try {
             setLoading(true);
-            console.log(params.id)
-            const res = await axios.put(`${JOB_API_END_POINT}/update/${params.id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const res = await axios.put(`${JOB_API_END_POINT}/update/${params.id}`, input, {
+                headers: { 'Content-Type': 'application/json' },
                 withCredentials: true,
             });
 
@@ -70,8 +69,6 @@ const JobSetup = () => {
                 navigate("/admin/jobs");
             }
         } catch (error) {
-            console.log(params.id)
-            console.log(error);
             toast.error(error.response?.data?.message || "Cập nhật thất bại!");
         } finally {
             setLoading(false);
@@ -83,13 +80,15 @@ const JobSetup = () => {
             setInput({
                 title: singleJob.title || "",
                 description: singleJob.description || "",
-                requirements: singleJob.requirements?.join(', ') || "",  // Chuyển mảng requirements thành chuỗi
+                requirements: Array.isArray(singleJob.requirements)
+                    ? singleJob.requirements.join(', ')
+                    : singleJob.requirements || "",
                 salary: singleJob.salary || "",
                 location: singleJob.location || "",
                 jobType: singleJob.jobType || "",
-                experienceLevel: singleJob.experienceLevel || "",
-                position: singleJob.position || "",
-                file: singleJob.file || null,
+                experience: singleJob.experience || "",
+                position: singleJob.position || 0,
+                companyId: singleJob.companyId || ""
             });
         }
     }, [singleJob]);
@@ -97,101 +96,161 @@ const JobSetup = () => {
     return (
         <div>
             <Navbar />
-            <div className="max-w-xl mx-auto my-10">
-                <form onSubmit={submitHandler}>
-                    <div className="flex items-center gap-5 p-8">
+            <div className='flex items-center justify-center w-screen my-5'>
+                <form onSubmit={submitHandler} className='p-8 max-w-4xl border border-gray-200 shadow-lg rounded-md'>
+                    <div className="flex items-center gap-5">
                         <Button
                             onClick={() => navigate("/admin/jobs")}
                             variant="outline"
                             className="flex items-center gap-2 text-gray-500 font-semibold"
+                            type="button"
                         >
                             <ArrowLeft />
                             <span>Quay lại</span>
                         </Button>
-                        <h1 className="font-bold text-xl">Cài đặt công việc</h1>
+                        <h1 className="font-bold text-xl">Cập nhật công việc</h1>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className='grid grid-cols-2 gap-4 m-4'>
                         <div>
-                            <Label>Tiêu đề công việc</Label>
+                            <Label>Tiêu đề</Label>
                             <Input
                                 type="text"
                                 name="title"
                                 value={input.title}
                                 onChange={changeEventHandler}
+                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                             />
                         </div>
+
                         <div>
-                            <Label>Mô tả</Label>
-                            <Input
-                                type="text"
-                                name="description"
-                                value={input.description}
-                                onChange={changeEventHandler}
-                            />
-                        </div>
-                        <div>
-                            <Label>Yêu cầu</Label>
-                            <Input
-                                type="text"
-                                name="requirements"
-                                value={input.requirements}
-                                onChange={changeEventHandler}
-                            />
-                        </div>
-                        <div>
-                            <Label>Mức lương</Label>
+                            <Label>Lương</Label>
                             <Input
                                 type="text"
                                 name="salary"
                                 value={input.salary}
                                 onChange={changeEventHandler}
+                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                             />
                         </div>
+
+                        <div>
+                            <Label>Mô tả</Label>
+                            <textarea
+                                name="description"
+                                value={input.description}
+                                onChange={changeEventHandler}
+                                className="w-full border border-gray-300 rounded-md p-2 my-1 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                                rows={4}
+                            />
+                        </div>
+
+                        <div>
+                            <Label>Yêu cầu</Label>
+                            <textarea
+                                name="requirements"
+                                value={input.requirements}
+                                onChange={changeEventHandler}
+                                className="w-full border border-gray-300 rounded-md p-2 my-1 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                                rows={4}
+                            />
+                        </div>
+
                         <div>
                             <Label>Địa điểm</Label>
-                            <Input
-                                type="text"
-                                name="location"
+                            <Select
                                 value={input.location}
-                                onChange={changeEventHandler}
-                            />
+                                onValueChange={(value) => setInput((prev) => ({ ...prev, location: value }))}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Chọn tỉnh/thành" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {provinces.map((province) => (
+                                            <SelectItem key={province} value={province}>
+                                                {province}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </div>
+
                         <div>
                             <Label>Loại công việc</Label>
-                            <Input
-                                type="text"
-                                name="jobType"
+                            <Select
                                 value={input.jobType}
-                                onChange={changeEventHandler}
-                            />
+                                onValueChange={(value) => setInput((prev) => ({ ...prev, jobType: value }))}
+                            >
+                                <SelectTrigger className="w-full">
+                                    <SelectValue placeholder="Chọn loại công việc" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectGroup>
+                                        {jobTypes.map((type) => (
+                                            <SelectItem key={type} value={type}>
+                                                {type}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectGroup>
+                                </SelectContent>
+                            </Select>
                         </div>
+
                         <div>
                             <Label>Cấp độ kinh nghiệm</Label>
                             <Input
-                                type="number"
-                                name="experienceLevel"
-                                value={input.experienceLevel}
+                                type="text"
+                                name="experience"
+                                value={input.experience}
                                 onChange={changeEventHandler}
+                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                             />
                         </div>
+
                         <div>
-                            <Label>Vị trí</Label>
+                            <Label>Số lượng vị trí</Label>
                             <Input
                                 type="number"
                                 name="position"
                                 value={input.position}
                                 onChange={changeEventHandler}
+                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
                             />
                         </div>
+
+                        {companies.length > 0 && (
+                            <div>
+                                <Label>Công ty</Label>
+                                <Select
+                                    onValueChange={selectCompanyHandler}
+                                    value={
+                                        companies.find(c => c._id === input.companyId)?.name.toLowerCase() || ""
+                                    }
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Chọn công ty" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        <SelectGroup>
+                                            {companies.map((company) => (
+                                                <SelectItem key={company.name} value={company.name.toLowerCase()}>
+                                                    {company.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectGroup>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
                     </div>
+
                     {loading ? (
                         <Button className="w-full my-4">
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Vui lòng đợi
+                            <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng đợi
                         </Button>
                     ) : (
-                        <Button type="submit" className="w-full my-4">
-                            Cập nhật
-                        </Button>
+                        <Button type="submit" className="w-full my-4">Cập nhật công việc</Button>
                     )}
                 </form>
             </div>
