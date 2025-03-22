@@ -15,7 +15,7 @@ import PostJob from './components/admin/PostJob'
 import Applicants from './components/admin/Applicants'
 import ProtectedRoute from './components/admin/ProtectedRoute'
 import JobSetup from './components/admin/JobSetup'
-
+import React, { useEffect } from 'react'
 
 const appRouter = createBrowserRouter([
   {

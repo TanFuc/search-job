@@ -5,9 +5,9 @@ import { getAdminJobs, getAllJobs, getJobById, postJob, deleteJob, updateJob } f
 const router = express.Router();
 
 router.route("/post").post(isAuthenticated, postJob);
-router.route("/get").get(isAuthenticated, getAllJobs);
+router.route("/get").get(getAllJobs);
 router.route("/getadminjobs").get(isAuthenticated, getAdminJobs);
-router.route("/get/:id").get(isAuthenticated, getJobById);
+router.route("/get/:id").get(getJobById);
 router.route("/delete/:id").delete(isAuthenticated, deleteJob);
 router.route("/update/:id").put(isAuthenticated, updateJob);
 
