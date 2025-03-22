@@ -14,6 +14,16 @@ import { ArrowLeft} from 'lucide-react';
 
 const provinces = ["Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Hải Phòng"];
 const jobTypes = ["Full-time", "Part-time", "Internship", "Freelance", "Remote"];
+const experienceLevels = [
+    "Không yêu cầu",
+    "Dưới 1 năm",
+    "1 năm",
+    "2 năm",
+    "3 năm",
+    "4 năm",
+    "5 năm",
+    "Trên 5 năm"
+];
 
 const PostJob = () => {
     const [input, setInput] = useState({
@@ -167,15 +177,22 @@ const PostJob = () => {
                         </div>
 
                         <div>
-                            <Label>Cấp độ kinh nghiệm</Label>
-                            <Input
-                                type="text"
-                                name="experience"
-                                value={input.experience}
-                                onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                            />
-                        </div>
+    <Label>Cấp độ kinh nghiệm</Label>
+    <Select onValueChange={(value) => setInput({ ...input, experience: value })}>
+        <SelectTrigger className="w-full">
+            <SelectValue placeholder="Chọn cấp độ kinh nghiệm" />
+        </SelectTrigger>
+        <SelectContent>
+            <SelectGroup>
+                {experienceLevels.map((level) => (
+                    <SelectItem key={level} value={level}>
+                        {level}
+                    </SelectItem>
+                ))}
+            </SelectGroup>
+        </SelectContent>
+    </Select>
+</div>
 
                         <div>
                             <Label>Số lượng vị trí</Label>

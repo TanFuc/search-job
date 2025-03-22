@@ -14,6 +14,16 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 
 const provinces = ["Hồ Chí Minh", "Hà Nội", "Đà Nẵng", "Cần Thơ", "Hải Phòng"];
 const jobTypes = ["Full-time", "Part-time", "Internship", "Freelance", "Remote"];
+const experienceLevels = [
+    "Không yêu cầu",
+    "Dưới 1 năm",
+    "1 năm",
+    "2 năm",
+    "3 năm",
+    "4 năm",
+    "5 năm",
+    "Trên 5 năm"
+];
 
 const JobSetup = () => {
     const params = useParams();
@@ -23,6 +33,7 @@ const JobSetup = () => {
     const { companies } = useSelector((store) => store.company);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    
 
     const [input, setInput] = useState({
         title: "",
@@ -35,17 +46,14 @@ const JobSetup = () => {
         position: 0,
         companyId: ""
     });
-
+    const selectedCompany = companies.find(company => company._id === input.companyId);
     const changeEventHandler = (e) => {
         const { name, value } = e.target;
         setInput((prev) => ({ ...prev, [name]: name === "position" ? Number(value) : value }));
     };
 
     const selectCompanyHandler = (value) => {
-        const selectedCompany = companies.find((company) => company.name.toLowerCase() === value);
-        if (selectedCompany) {
-            setInput((prev) => ({ ...prev, companyId: selectedCompany._id }));
-        }
+        setInput((prev) => ({ ...prev, companyId: value }));
     };
 
     const submitHandler = async (e) => {
@@ -86,11 +94,14 @@ const JobSetup = () => {
                 salary: singleJob.salary || "",
                 location: singleJob.location || "",
                 jobType: singleJob.jobType || "",
-                experience: singleJob.experience || "",
+                experience: singleJob.experienceLevel || "",
                 position: singleJob.position || 0,
-                companyId: singleJob.companyId || ""
+                companyId: singleJob.company || ""
             });
         }
+
+        console.log(singleJob);
+        
     }, [singleJob]);
 
     return (
@@ -198,15 +209,25 @@ const JobSetup = () => {
                         </div>
 
                         <div>
-                            <Label>Cấp độ kinh nghiệm</Label>
-                            <Input
-                                type="text"
-                                name="experience"
-                                value={input.experience}
-                                onChange={changeEventHandler}
-                                className="focus-visible:ring-offset-0 focus-visible:ring-0 my-1"
-                            />
-                        </div>
+    <Label>Cấp độ kinh nghiệm</Label>
+    <Select
+        value={experienceLevels.includes(input.experience) ? input.experience : ""}
+        onValueChange={(value) => setInput((prev) => ({ ...prev, experience: value }))}
+    >
+        <SelectTrigger className="w-full">
+            <SelectValue placeholder="Chọn cấp độ kinh nghiệm" />
+        </SelectTrigger>
+        <SelectContent>
+            <SelectGroup>
+                {experienceLevels.map((level) => (
+                    <SelectItem key={level} value={level}>
+                        {level}
+                    </SelectItem>
+                ))}
+            </SelectGroup>
+        </SelectContent>
+    </Select>
+</div>
 
                         <div>
                             <Label>Số lượng vị trí</Label>
@@ -220,29 +241,34 @@ const JobSetup = () => {
                         </div>
 
                         {companies.length > 0 && (
-                            <div>
-                                <Label>Công ty</Label>
-                                <Select
-                                    onValueChange={selectCompanyHandler}
-                                    value={
-                                        companies.find(c => c._id === input.companyId)?.name.toLowerCase() || ""
-                                    }
-                                >
-                                    <SelectTrigger className="w-full">
-                                        <SelectValue placeholder="Chọn công ty" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            {companies.map((company) => (
-                                                <SelectItem key={company.name} value={company.name.toLowerCase()}>
-                                                    {company.name}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-                        )}
+  <div>
+    <Label>Công ty</Label>
+    <Select
+      value={input.companyId}
+      onValueChange={selectCompanyHandler}
+    >
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Chọn công ty" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {companies.map((company) => (
+            <SelectItem key={company._id} value={company._id}>
+              {company.name}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+
+    {/* Hiển thị tên công ty đã chọn */}
+    {selectedCompany && (
+      <p className="mt-2 text-sm text-gray-600">
+        Công ty đã chọn: <span className="font-semibold">{selectedCompany.name}</span>
+      </p>
+    )}
+  </div>
+)}
                     </div>
 
                     {loading ? (

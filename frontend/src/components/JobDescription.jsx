@@ -85,7 +85,7 @@ const JobDescription = () => {
                 <h1 className='font-bold my-1'>Vị trí: <span className='pl-4 font-normal text-gray-800'>{singleJob?.title}</span></h1>
                 <h1 className='font-bold my-1'>Địa điểm: <span className='pl-4 font-normal text-gray-800'>{singleJob?.location}</span></h1>
                 <h1 className='font-bold my-1'>Mô tả: <span className='pl-4 font-normal text-gray-800'>{singleJob?.description}</span></h1>
-                <h1 className='font-bold my-1'>Kinh nghiệm: <span className='pl-4 font-normal text-gray-800'>{singleJob?.experience} năm</span></h1>
+                <h1 className='font-bold my-1'>Kinh nghiệm: <span className='pl-4 font-normal text-gray-800'>{singleJob?.experienceLevel}</span></h1>
                 <h1 className='font-bold my-1'>Lương: <span className='pl-4 font-normal text-gray-800'>{singleJob?.salary}</span></h1>
                 <h1 className='font-bold my-1'>Số ứng viên: <span className='pl-4 font-normal text-gray-800'>{singleJob?.applications?.length}</span></h1>
                 <h1 className='font-bold my-1'>Ngày đăng: <span className='pl-4 font-normal text-gray-800'>{singleJob?.createdAt.split("T")[0]}</span></h1>
