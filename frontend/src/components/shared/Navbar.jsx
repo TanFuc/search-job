@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className='flex items-center justify-between mx-auto max-w-7xl h-16 px-4'>
         <Link to='/' className='flex items-center gap-2'>
           <h1 className='text-2xl font-bold'>
-            IT<span className='text-blue-600'>Job</span>
+            IT<span className='text-[#7209b7]'>Job</span>
           </h1>
         </Link>
 
@@ -43,22 +43,22 @@ const Navbar = () => {
             {user?.role === 'recruiter' ? (
               <>
                 <li>
-                  <Link to='/admin/companies' className='hover:text-blue-600 transition'>Công ty</Link>
+                  <Link to='/admin/companies' className='hover:text-[#7209b7] transition'>Công ty</Link>
                 </li>
                 <li>
-                  <Link to='/admin/jobs' className='hover:text-blue-600 transition'>Việc làm</Link>
+                  <Link to='/admin/jobs' className='hover:text-[#7209b7] transition'>Việc làm</Link>
                 </li>
               </>
             ) : (
               <>
                 <li>
-                  <Link to='/' className='hover:text-blue-600 transition'>Trang chủ</Link>
+                  <Link to='/' className='hover:text-[#7209b7] transition'>Trang chủ</Link>
                 </li>
                 <li>
-                  <Link to='/jobs' className='hover:text-blue-600 transition'>Việc làm</Link>
+                  <Link to='/jobs' className='hover:text-[#7209b7] transition'>Việc làm</Link>
                 </li>
                 <li>
-                  <Link to='/browse' className='hover:text-blue-600 transition'>Tất cả</Link>
+                  <Link to='/browse' className='hover:text-[#7209b7] transition'>Tất cả</Link>
                 </li>
               </>
             )}
@@ -67,12 +67,12 @@ const Navbar = () => {
           {!user ? (
             <div className='flex items-center gap-2'>
               <Link to='/login'>
-                <Button variant='outline' className='hover:border-blue-600 hover:text-blue-600 transition'>
+                <Button variant='outline' className='hover:border-purple-600 hover:text-[#7209b7] transition'>
                   Đăng nhập
                 </Button>
               </Link>
               <Link to='/signup'>
-                <Button className='bg-blue-600 hover:bg-blue-700 text-white transition'>
+                <Button className='bg-purple-600 hover:bg-purple-700 text-white transition'>
                   Đăng ký
                 </Button>
               </Link>
@@ -80,7 +80,7 @@ const Navbar = () => {
           ) : (
             <Popover>
               <PopoverTrigger asChild>
-                <Avatar className='cursor-pointer border-2 border-blue-600 hover:shadow-md transition'>
+                <Avatar className='cursor-pointer border-2 border-purple-600 hover:shadow-md transition'>
                   <AvatarImage src={user?.profile?.profilePhoto} alt='avatar' />
                 </Avatar>
               </PopoverTrigger>
@@ -96,7 +96,7 @@ const Navbar = () => {
                 </div>
                 <div className='space-y-2'>
                   {user?.role === 'student' && (
-                    <Link to='/profile' className='flex items-center gap-2 text-gray-700 hover:text-blue-600 transition'>
+                    <Link to='/profile' className='flex items-center gap-2 text-gray-700 hover:text-[#7209b7] transition'>
                       <User2 size={18} />
                       <span>Xem hồ sơ</span>
                     </Link>

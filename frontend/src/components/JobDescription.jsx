@@ -57,7 +57,7 @@ const JobDescription = () => {
                 <div>
                     <h1 className='text-3xl font-bold text-gray-800'>{singleJob?.title}</h1>
                     <div className='flex items-center gap-3 mt-4'>
-                        <Badge className='text-blue-600' variant="ghost">{singleJob?.position} Vị trí</Badge>
+                        <Badge className='text-[#7209b7]' variant="ghost">{singleJob?.position} Vị trí</Badge>
                         <Badge className='text-yellow-600' variant="ghost">{singleJob?.jobType}</Badge>
                         <Badge className='text-green-600' variant="ghost">Lương: {singleJob?.salary}</Badge>
                     </div>

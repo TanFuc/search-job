@@ -8,7 +8,7 @@ const LatestJobs = () => {
     return (
         <div className='max-w-7xl mx-auto my-20 px-4'>
             <h1 className='text-4xl font-semibold text-center mb-8'>
-                <span className='text-blue-600 hover:text-blue-500 transition duration-300 ease-in-out'>
+                <span className='text-[#7209b7] hover:text-purple-500 transition duration-300 ease-in-out'>
                     Việc Làm Mới Nhất & Hàng Đầu
                 </span>
             </h1>

@@ -69,7 +69,7 @@ const Login = () => {
                                 name="email"
                                 onChange={changeEventHandler}
                                 placeholder="tanphuc@gmail.com"
-                                className="w-full p-3 border rounded-md border-gray-300 focus:ring-2 focus:ring-blue-400"
+                                className="w-full p-3 border rounded-md border-gray-300 focus:ring-2 focus:ring-purple-400"
                             />
                             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></span>
                         </div>
@@ -85,7 +85,7 @@ const Login = () => {
                                 name="password"
                                 onChange={changeEventHandler}
                                 placeholder="********"
-                                className="w-full p-3 border rounded-md border-gray-300 focus:ring-2 focus:ring-blue-400"
+                                className="w-full p-3 border rounded-md border-gray-300 focus:ring-2 focus:ring-purple-400"
                             />
                             <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></span>
                         </div>
@@ -124,11 +124,11 @@ const Login = () => {
 
                     {/* Submit button */}
                     {loading ? (
-                        <Button className="w-full my-4 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white">
+                        <Button className="w-full my-4 flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white">
                             <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng chờ
                         </Button>
                     ) : (
-                        <Button type="submit" className="w-full my-4 bg-blue-600 hover:bg-blue-700 text-white">
+                        <Button type="submit" className="w-full my-4 bg-purple-600 hover:bg-purple-700 text-white">
                             Đăng nhập
                         </Button>
                     )}
@@ -136,7 +136,7 @@ const Login = () => {
                     {/* Signup link */}
                     <div className='text-center'>
                         <span className='text-sm'>
-                            Chưa có tài khoản? <Link to="/signup" className='text-blue-600 hover:underline'>Đăng ký</Link>
+                            Chưa có tài khoản? <Link to="/signup" className='text-[#7209b7] hover:underline'>Đăng ký</Link>
                         </span>
                     </div>
                 </form>

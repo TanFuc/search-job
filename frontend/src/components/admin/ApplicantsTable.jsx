@@ -48,7 +48,7 @@ const ApplicantsTable = () => {
                             <TableCell>{item?.applicant?.phoneNumber}</TableCell>
                             <TableCell>
                                 {item.applicant?.profile?.resume ? (
-                                    <a className="text-blue-600 cursor-pointer" href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">
+                                    <a className="text-[#7209b7] cursor-pointer" href={item?.applicant?.profile?.resume} target="_blank" rel="noopener noreferrer">
                                         {item?.applicant?.profile?.resumeOriginalName}
                                     </a>
                                 ) : (

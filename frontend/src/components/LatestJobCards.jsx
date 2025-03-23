@@ -39,7 +39,7 @@ const LatestJobCards = ({ job }) => {
 
             {/* Job Badges */}
             <div className="flex items-center gap-4 flex-wrap mt-6">
-                <Badge className="text-blue-700 font-semibold bg-blue-100 rounded-full px-4 py-2 transition-all hover:bg-blue-200 hover:scale-105 hover:shadow-lg">
+                <Badge className="text-purple-700 font-semibold bg-purple-100 rounded-full px-4 py-2 transition-all hover:bg-purple-200 hover:scale-105 hover:shadow-lg">
                     {`${job?.position} Vị trí` || 'Vị trí chưa rõ'}
                 </Badge>
 
@@ -51,8 +51,12 @@ const LatestJobCards = ({ job }) => {
                     Lương: {job?.salary || 'Chưa rõ'}
                 </Badge>
 
-                <Badge className="text-[#7209b7] font-semibold bg-[#F2E6FF] rounded-full px-4 py-2 transition-all hover:bg-[#D8B2F0] hover:scale-105 hover:shadow-lg">
+                <Badge className="bg-red-100 text-red-700 font-semibold rounded-full px-4 py-2 transition-all hover:bg-[#D8B2F0] hover:scale-105 hover:shadow-lg">
                     Kinh nghiệm: {job?.experienceLevel || 'Chưa rõ'}
+                </Badge>
+
+                <Badge className="bg-pink-100 text-pink-700 font-semibold rounded-full px-4 py-2 transition-all hover:bg-[#D8B2F0] hover:scale-105 hover:shadow-lg">
+                 {job?.location || 'Chưa rõ'}
                 </Badge>
             </div>
         </div>

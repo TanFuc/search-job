@@ -150,7 +150,7 @@ const JobSetup = () => {
                                 name="description"
                                 value={input.description}
                                 onChange={changeEventHandler}
-                                className="w-full border border-gray-300 rounded-md p-2 my-1 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                                className="w-full border border-gray-300 rounded-md p-2 my-1 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-y"
                                 rows={4}
                             />
                         </div>
@@ -161,7 +161,7 @@ const JobSetup = () => {
                                 name="requirements"
                                 value={input.requirements}
                                 onChange={changeEventHandler}
-                                className="w-full border border-gray-300 rounded-md p-2 my-1 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+                                className="w-full border border-gray-300 rounded-md p-2 my-1 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-y"
                                 rows={4}
                             />
                         </div>

@@ -74,7 +74,7 @@ const Signup = () => {
             <Navbar />
             <div className='flex items-center justify-center max-w-7xl mx-auto p-4'>
                 <form onSubmit={submitHandler} className='w-full md:w-1/2 lg:w-1/3 bg-white p-8 rounded-lg shadow-lg'>
-                    <h1 className='font-bold text-2xl mb-6 text-center text-blue-600'>Đăng ký</h1>
+                    <h1 className='font-bold text-2xl mb-6 text-center text-[#7209b7]'>Đăng ký</h1>
 
                     {/* Fullname */}
                     <div className='my-3'>
@@ -85,7 +85,7 @@ const Signup = () => {
                             name="fullname"
                             onChange={changeEventHandler}
                             placeholder="Nguyễn Văn Tèo"
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
 
@@ -98,7 +98,7 @@ const Signup = () => {
                             name="email"
                             onChange={changeEventHandler}
                             placeholder="teonguyen@gmail.com"
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
 
@@ -111,7 +111,7 @@ const Signup = () => {
                             name="phoneNumber"
                             onChange={changeEventHandler}
                             placeholder="8080808080"
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
 
@@ -124,7 +124,7 @@ const Signup = () => {
                             name="password"
                             onChange={changeEventHandler}
                             placeholder="********"
-                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
                         />
                     </div>
 
@@ -171,12 +171,12 @@ const Signup = () => {
                     {/* Submit Button */}
                     {
                         loading
-                            ? <Button className="w-full my-4 bg-blue-600 text-white hover:bg-blue-700"><Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng chờ </Button>
-                            : <Button type="submit" className="w-full my-4 bg-blue-600 text-white hover:bg-blue-700">Đăng ký</Button>
+                            ? <Button className="w-full my-4 bg-purple-600 text-white hover:bg-purple-700"><Loader2 className='mr-2 h-4 w-4 animate-spin' /> Vui lòng chờ </Button>
+                            : <Button type="submit" className="w-full my-4 bg-purple-600 text-white hover:bg-purple-700">Đăng ký</Button>
                     }
 
                     <div className='text-center mt-4'>
-                        <span className='text-sm'>Đã có tài khoản? <Link to="/login" className='text-blue-600 hover:underline'>Đăng nhập</Link></span>
+                        <span className='text-sm'>Đã có tài khoản? <Link to="/login" className='text-[#7209b7] hover:underline'>Đăng nhập</Link></span>
                     </div>
                 </form>
             </div>
